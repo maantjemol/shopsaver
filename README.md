@@ -16,7 +16,7 @@ Unearth the Best Grocery Deals!
    ```bash
    git push
    ```
-   Got to Github and click on create pull request
+   Got to Github and click on create pull request, check all the requirements
 4. Address review comments
 5. Merge your pull request
 6. Delete your branch
