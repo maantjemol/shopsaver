@@ -1,7 +1,9 @@
-# shopsaver
+# Shopsaver
+
 Unearth the Best Grocery Deals!
 
 ## Github workflow:
+
 1. Create a branch:
    ```bash
    git checkout -b ＜new-branch＞ main
