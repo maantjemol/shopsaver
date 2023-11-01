@@ -1,0 +1,72 @@
+body {
+    font-family: Arial;
+    margin: 0;
+  }
+  
+  /* Header/Logo Title */
+.header {
+    padding: 60px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+  }
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search-input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+}
+
+#search-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: 5px;
+    border-radius: 30px;         /*how round?*/
+    cursor: pointer;
+}
+
+.center {
+    margin: auto;
+    width:50%;
+    padding:10px;
+}
+
+
+/* Create two unequal columns that floats next to each other */
+.column {
+    float: left;
+    width: 58%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 3px 3px 5px #888888;
+    border-radius: 10px;
+    margin: 1%;
+  }
+
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* .column {
+    flex: 50%;
+  } */
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
