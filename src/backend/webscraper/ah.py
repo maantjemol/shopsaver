@@ -20,7 +20,7 @@ class Store(TypedDict):
     url: str
 
 
-def fetch_ah_data():
+def fetch_data():
   headers = {
       'authority': 'www.ah.nl',
       'accept': 'application/json',
@@ -56,7 +56,7 @@ def fetch_ah_data():
   return all_products
 
 
-def fetch_ah_data_cache(path:str):
+def fetch_data_cache(path:str):
     with open(path, 'r') as f:
         return json.load(f)
 
