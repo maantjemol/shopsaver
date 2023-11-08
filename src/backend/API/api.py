@@ -1,10 +1,5 @@
 from typing import TypedDict, List
 import sqlite3 
-# import os.path
-
-# BASE_DIR = os.path.dirname(os.path.abspath(SHOPSAVER))
-# db_path = os.path.join(BASE_DIR, "main.sqlite")
-# with sqlite3.connect(db_path) as db:
 
 
 def get_taxomony(connection:sqlite3.Connection):
