@@ -51,8 +51,35 @@ def get_items_by_taxomony(taxomony_id:int, connection:sqlite3.Connection):
     query = "SELECT * FROM item LEFT JOIN item_taxonomy ON item_taxonomy.item_id = item.id WHERE item_taxonomy.taxonomy_id = ?"
     cursor = connection.cursor()
     cursor.execute(query, (taxomony_id,))
-    return cursor.fetchall()
+    response = cursor.fetchall()
+    products = []
+    for item in response:
+        products.append({
+            "name": item[1],
+            "store_id": item[2],
+            "unit": item[3],
+            "price": item[4],
+            "url": item[5],
+            "taxomonies": [item[-1]]
+        })
+    return products
+
+def get_all_taxomonies_with_items(connection:sqlite3.Connection):
+    query = "SELECT id FROM taxomony t"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    response = cursor.fetchall()
+    data = []
+    for taxomony in response:
+        items:List[Item] = get_items_by_taxomony(taxomony[0], connection)
+        data.append({
+            "id": taxomony[0],
+            "items": items
+        })
+    return data
+
 
 if __name__ == "__main__":
     connection = sqlite3.connect("../../../database/main.sqlite")
-    print(get_items_by_taxomony(8087, connection))
+    response = get_items_by_taxomony(4979, connection)
+    print(response)
