@@ -50,14 +50,14 @@ def fetch_ah_data():
     products = response.json()["cards"]
     all_products.extend(products)
 
-  with open('ah.json', 'w') as f:
+  with open('../../../cache/ah.json', 'w') as f:
     json.dump(all_products, f)  
 
   return all_products
 
 
-def fetch_ah_data_cache():
-    with open('ah.json', 'r') as f:
+def fetch_ah_data_cache(path:str):
+    with open(path, 'r') as f:
         return json.load(f)
 
 def parseTaxonomies(cards) -> List[Taxomony]:

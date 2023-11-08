@@ -7,7 +7,7 @@ if __name__ == "__main__":
     connection = sqlite3.connect("../../database/main.sqlite")
 
     db.initialize_database(connection=connection, path="./database/initialize.sql")
-    data = ah.fetch_ah_data_cache()
+    data = ah.fetch_ah_data_cache("../../cache/ah.json")
     taxonomies = ah.parseTaxonomies(data)
     products = ah.parseProducts(data)
 
