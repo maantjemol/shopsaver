@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import './App.css'
+import { Searchbar } from './components/Searchbar'
 
 function App() {
-  
-
   return (
-    <>
-      <div>
-        <p>Hello world</p>
+      <div className='App'>
+        <div className='search-bar-container'> 
+            <Searchbar />
+            <div>SearchResults</div>
+        </div>
       </div>
-  
-    </>
   )
 }
 
