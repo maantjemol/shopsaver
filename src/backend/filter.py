@@ -56,16 +56,3 @@ def removeBlacklist(string:str, blacklist:str):
         if item.isdigit():
             string = string.replace(item, "")
     return string.strip()
-
-
-if __name__ == "__main__":
-    product:Item = {
-        'name': 'AH Witlof', 
-        'store_id': 1, 
-        'unit': 'KG', 
-        'price': "8.26", 
-        'url': 'https://www.ah.nl/producten/product/wi443204/ah-pompoen-lasagneblad', 
-        'taxomonies': []
-    }
-
-    print(getItemTaxonomies(product))

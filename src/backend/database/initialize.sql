@@ -27,3 +27,4 @@ CREATE TABLE IF NOT EXISTS item_taxonomy (
 );
 
 INSERT OR IGNORE INTO store VALUES (1, "AH", "https://www.ah.nl");
+INSERT OR IGNORE INTO store VALUES (2, "Jumbo", "https://www.jumbo.com");

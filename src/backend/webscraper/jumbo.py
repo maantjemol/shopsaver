@@ -103,9 +103,13 @@ def parseProducts(cards) -> List[Item]:
         if product["prices"]["pricePerUnit"]["unit"] == "l":
             unit = "LT"
 
+        price = product["prices"]["pricePerUnit"]["price"]
+        if price == None:
+            price = product["prices"]["price"]
+
         new_product:Item = {
             "name": product["title"],
-            "price": product["prices"]["pricePerUnit"]["price"],
+            "price": price / 100,
             "unit": unit,
             'store_id': 2,
             "url": "https://jumbo.com" + product["link"],
