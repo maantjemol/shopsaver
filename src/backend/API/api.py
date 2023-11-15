@@ -3,7 +3,7 @@ import sqlite3
 
 
 def get_taxomony(connection:sqlite3.Connection):
-    query = "SELECT name FROM taxomony t"
+    query = "SELECT * FROM taxomony t"
     cursor = connection.cursor()
     cursor.execute(query)
     return cursor.fetchall()
