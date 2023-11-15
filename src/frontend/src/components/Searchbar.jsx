@@ -3,7 +3,7 @@ import {FaSearch} from "react-icons/fa";
 import "./Serachbar.css"
 
 
-export const Searchbar = () => {
+export const Searchbar = ({setResults})=> {
     // this will refresh the page with our chosen input (setInput)
         const [input, setInput] = useState("")
 
@@ -21,16 +21,13 @@ export const Searchbar = () => {
                         user.name.toLowerCase().includes(value)
                       );
                 })
-                console.log(results)
-            //       
-            //     });
-            //     setResults(results);
+                setResults(results);
                });
         };
-        const handleChange = (value) => {
-            setInput(value);
-            getData(value);
-          };
+    const handleChange = (value) => {
+        setInput(value);
+        getData(value);
+    };
 
     return (
         <div className ="input-wrapper">
@@ -40,3 +37,4 @@ export const Searchbar = () => {
 
     )
 }
+
