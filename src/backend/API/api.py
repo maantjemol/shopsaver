@@ -19,7 +19,7 @@ def get_Products():
         # convert row objects to dictionary
         for i in rows:
             Product = {}
-            Product["id"] = i["id"]
+            Product["product_id"] = i["id"]
             Product["name"] = i["name"]
             Products.append(Product)
 
@@ -29,8 +29,8 @@ def get_Products():
     return Products
 
 
-def get_user_by_id(user_id):
-    user = {}
+def get_product_by_id(product_id):
+    Product = {}
     try:
         conn = connect_to_db()
         conn.row_factory = sqlite3.Row
