@@ -78,6 +78,15 @@ def get_all_taxomonies_with_items(connection:sqlite3.Connection):
         })
     return data
 
+def get_taxomony_by_id(taxomony_id:int, connection:sqlite3.Connection):
+    query = "SELECT * FROM taxomony WHERE id = ?"
+    cursor = connection.cursor()
+    cursor.execute(query, (taxomony_id,))
+    response = cursor.fetchone()
+    return {
+        "id": response[0],
+        "name": response[1]
+    }
 
 if __name__ == "__main__":
     connection = sqlite3.connect("../../../database/main.sqlite")

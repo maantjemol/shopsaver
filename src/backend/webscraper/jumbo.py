@@ -1,7 +1,6 @@
 import json
 from typing import List, TypedDict
 import requests
-from ..database.functions import get_items_by_taxomony
 
 class Item(TypedDict):
     name: str

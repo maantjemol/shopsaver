@@ -1,54 +1,66 @@
 import sqlite3
 from webscraper.ah import Item
 from database.functions import get_all_taxomonies_with_items
+import re
 
+def getItemTaxonomies(item:Item, allItems):
+    blacklist = open("blacklist.txt").read().lower()
 
-
-def getItemTaxonomies(item:Item):
-    connection = sqlite3.connect("../../database/main.sqlite")
-    allItems = get_all_taxomonies_with_items(connection)
-
-    productTitle = item["name"].lower()
+    productTitle = removeBlacklist(item["name"].lower(), blacklist)
     
     taxomonies = []
+    productTitleSet = set(productTitle.split(" "))
+
+    MIN_SCORE = 0.05
+    MAX_ITEMS = 4
 
     for taxomony in allItems:
         for item in taxomony["items"]:
-            name = removeBlacklist(item["name"].lower())
-            if name == removeBlacklist(productTitle):
+            name = removeBlacklist(item["name"].lower(), blacklist)
+            if name == productTitle and taxomony["id"] not in taxomonies:
                 taxomonies.append(taxomony["id"])
     
+    if len(taxomonies) >= MAX_ITEMS:
+        return taxomonies
+    
+    suggestedTaxomonies = []
     for taxomony in allItems:
-        taxomonyTokens = []
-        nameTokens = set(productTitle.split(" "))
+        taxomonyTokens = set()
         for item in taxomony["items"]:
-            name = removeBlacklist(item["name"].lower())
-            if taxomony["id"] == 4979:
-                print(name)
-            if name == removeBlacklist(productTitle):
+            name = removeBlacklist(item["name"].lower(), blacklist)
+            if name == productTitle:
                 continue
-            taxomonyTokens.extend(name.split(" "))
-        taxomonyTokensSet = set(taxomonyTokens)
-        intersection = len(nameTokens.intersection(taxomonyTokensSet))
-        union = len(nameTokens.union(taxomonyTokensSet))
+            taxomonyTokens.update(name.split(" "))
+        intersection = len(productTitleSet.intersection(taxomonyTokens))
+        union = len(productTitleSet.union(taxomonyTokens))
         similarity = intersection / union if union != 0 else 0
-        if similarity > 0:
-            print(similarity, taxomony["id"])
+        if similarity > MIN_SCORE:
+            suggestedTaxomonies.append((taxomony["id"], similarity))
+    
+    suggestedTaxomonies.sort(key=lambda x: x[1], reverse=True)
+    for taxomony in suggestedTaxomonies:
+        if len(taxomonies) >= MAX_ITEMS:
+            break
+        if taxomony[0] not in taxomonies:
+            taxomonies.append(taxomony[0])
+    
     return taxomonies
 
 
-def removeBlacklist(string:str):
-    blacklist = open("blacklist.txt").read().lower()
+def removeBlacklist(string:str, blacklist:str):
+    string = string.lower()
     for item in blacklist.split("\n"):
         string = string.replace(item + " ", "")
-    return string
-
-
+        pattern = r"\b\d+(\.\d+)?\s*[kmlgKMLG]{1,2}\b"
+        string = re.sub(pattern, "", string)
+        if item.isdigit():
+            string = string.replace(item, "")
+    return string.strip()
 
 
 if __name__ == "__main__":
     product:Item = {
-        'name': 'AH komkommer', 
+        'name': 'AH Witlof', 
         'store_id': 1, 
         'unit': 'KG', 
         'price': "8.26", 
