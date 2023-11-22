@@ -1,10 +1,9 @@
 from math import inf, prod
 from typing import TypedDict, List
 import sqlite3 
-from flask import Flask, request, jsonify #added to top of file
-from flask_cors import CORS #added to top of file
 
 def main(taxonomy_list):
+    '''This is the main function for testing'''
     # For testing
     # taxonomy_list = [864, 866, 876]
     taxonomy_list = [864]
@@ -12,12 +11,12 @@ def main(taxonomy_list):
     return lowest
 
 def connect_to_db():
-    # This function makes the connection from this python file to the database. 
+    '''This function makes the connection from this python file to the database. '''
     conn = sqlite3.connect('../../../database/main.sqlite')
     return conn
 
 def get_taxonomy():
-    #This function requests a table from the database and stores the data in a python dictionary
+    '''This function requests the taxonomy table from the database and stores the data in a python dictionary'''
     Products = []
     try:
         conn = connect_to_db()
@@ -39,7 +38,7 @@ def get_taxonomy():
     return Products
 
 def get_items():            
-    # This is a function that connects to the database and converts a table into a python dictionary
+    '''This is a function that connects to the database and converts the item table into a python dictionary'''
     items = []
     try:
         conn = connect_to_db()
@@ -66,7 +65,7 @@ def get_items():
     return items
 
 def get_taxonomy_id():
-    # This is a function that connects to the database and converts a table into a python dictionary
+    '''This is a function that connects to the database and converts the taxonomy_id table into a python dictionary'''
     taxonomy_id = []
     try: 
         conn = connect_to_db()
@@ -87,7 +86,7 @@ def get_taxonomy_id():
     return taxonomy_id
 
 def get_grocery_store():
-    # This is a function that connects to the database and converts a table into a python dictionary
+    '''This is a function that connects to the database and converts the stores table into a python dictionary'''
     grocery_store = []
     try:
         conn = connect_to_db()
@@ -108,8 +107,8 @@ def get_grocery_store():
     return grocery_store
 
 def match_taxonomy_to_id(Taxonomy):
-    #  This function matches the taxonomy_id to the item_id and
-    #  returns a list that cointains every item that the taxonomy is linked to
+    '''This function matches the taxonomy_id to the item_id and
+     returns a list that cointains every item that the taxonomy is linked to'''
     Matches = []
     taxonomy = Taxonomy
     # For testing
@@ -123,9 +122,11 @@ def match_taxonomy_to_id(Taxonomy):
     return Matches
 
 def lowest_price(Taxonomy_list):
-    # This function calculates the lowest price of each prodect per store
-    # The function takes in the list of the taxonomies that it receives from the website
-    # It then uses the function match_taxonomy_to_id() to convert those taxomonies to all item id's it is connected to
+    '''
+    This function calculates the lowest price of each prodect per store
+    The function takes in the list of the taxonomies that it receives from the website
+    It then uses the function match_taxonomy_to_id() to convert those taxomonies to all item id's it is connected to
+    '''
 
     lowest = []
 
@@ -134,6 +135,10 @@ def lowest_price(Taxonomy_list):
     taxonomy_list = Taxonomy_list
     # For testing:
     # taxonomy_list = [864, 866, 876]
+
+    # This loop creates a dictionary for each store which we will later append the lowest product to
+    for i in stores:
+        lowest.append({"Store_name": i["Store_name"], "Store_id": i["Store_id"], "products": []})
 
     # First for loop that selects the first taxonomy and converts it the product Id's 
     for taxonomy in taxonomy_list:
@@ -154,18 +159,18 @@ def lowest_price(Taxonomy_list):
                         store_id.append(item["Store"])
                 else:
                     continue   
-        # Here is a loop that filters out the cheapest product from each store.                 
-        for i in stores:
+        # Here is a loop that filters out the cheapest product from each store and appends it to the correct dictionary 
+        # created earlier.                 
+        for i in range(len(lowest)):
             x={"Price": inf}
+            store = lowest[i]
             for product in products: 
-                if product["Sales_price"] < x["Price"] and product["Store"] == i["Store_id"]: 
+                if product["Sales_price"] < x["Price"] and product["Store"] == store["Store_id"]: 
                     x = product
-                    x["Store_name"] = i["Store_name"]
                     x["Taxonomy_id"] = taxonomy
                 else:
                     continue
-            lowest_per_store.append(x)
-        lowest.append(lowest_per_store)
+            lowest[i]["products"].append(x)
             
     return lowest
 
