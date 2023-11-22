@@ -57,6 +57,7 @@ def get_items():
             item["Unit"] = i["unit"]
             item["Price"] = i["price"]
             item["Product_url"] = i["url"]
+            item["Sales_price"] = i["sales_price"]
             items.append(item)
         
     except:
@@ -157,7 +158,7 @@ def lowest_price(Taxonomy_list):
         for i in stores:
             x={"Price": inf}
             for product in products: 
-                if product["Price"] < x["Price"] and product["Store"] == i["Store_id"]: 
+                if product["Sales_price"] < x["Price"] and product["Store"] == i["Store_id"]: 
                     x = product
                     x["Store_name"] = i["Store_name"]
                     x["Taxonomy_id"] = taxonomy
