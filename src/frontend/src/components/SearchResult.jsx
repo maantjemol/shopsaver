@@ -1,10 +1,10 @@
 import "./SearchResult.css";
 
-export const SearchResult = ({ result }) => {
+export const SearchResult = ({ result, clickAction }) => {
   return (
     <div
       className="search-result"
-      onClick={(e) => alert(`You selected ${result}!`)}>{result}
+      onClick={(e) => clickAction(result)}>{result}
     </div>
   );
 };
