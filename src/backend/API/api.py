@@ -6,7 +6,8 @@ from flask_cors import CORS #added to top of file
 
 def main(taxonomy_list):
     # For testing
-    taxonomy_list = [864, 866, 876]
+    # taxonomy_list = [864, 866, 876]
+    taxonomy_list = [864]
     lowest = lowest_price(taxonomy_list)
     return lowest
 
@@ -156,7 +157,7 @@ def lowest_price(Taxonomy_list):
         for i in stores:
             x={"Price": inf}
             for product in products: 
-                if product["Price"] < x["Price"]: 
+                if product["Price"] < x["Price"] and product["Store"] == i["Store_id"]: 
                     x = product
                     x["Store_name"] = i["Store_name"]
                     x["Taxonomy_id"] = taxonomy
