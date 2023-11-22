@@ -8,6 +8,7 @@ class Item(TypedDict):
     price: int
     url: str 
     taxomonies: List[str] # taxemony ids
+    sales_price: int
 
 class Taxomony(TypedDict):
     id: int
@@ -25,10 +26,10 @@ def initialize_database(path:str, connection:sqlite3.Connection):
 
 # TODO: trow error if item already exists or taxemony does not exists
 def add_item(item:Item, connection:sqlite3.Connection):
-    sql_add_item = "INSERT INTO item (name, store_id, unit, price, url) VALUES (?, ?, ?, ?, ?)"
+    sql_add_item = "INSERT INTO item (name, store_id, unit, price, url, sales_price) VALUES (?, ?, ?, ?, ?, ?)"
     sql_add_taxomony = "INSERT INTO item_taxonomy (item_id, taxonomy_id) VALUES (?, ?)"
     cursor = connection.cursor()
-    cursor.execute(sql_add_item, (item["name"], item["store_id"], item["unit"], item["price"], item["url"]))
+    cursor.execute(sql_add_item, (item["name"], item["store_id"], item["unit"], item["price"], item["url"], item["sales_price"]))
     item_id = cursor.lastrowid
     for taxomony in item["taxomonies"]:
         cursor.execute(sql_add_taxomony, (item_id, taxomony))
@@ -51,8 +52,44 @@ def get_items_by_taxomony(taxomony_id:int, connection:sqlite3.Connection):
     query = "SELECT * FROM item LEFT JOIN item_taxonomy ON item_taxonomy.item_id = item.id WHERE item_taxonomy.taxonomy_id = ?"
     cursor = connection.cursor()
     cursor.execute(query, (taxomony_id,))
-    return cursor.fetchall()
+    response = cursor.fetchall()
+    products = []
+    for item in response:
+        products.append({
+            "name": item[1],
+            "store_id": item[2],
+            "unit": item[3],
+            "price": item[4],
+            "url": item[5],
+            "taxomonies": [item[-1]]
+        })
+    return products
+
+def get_all_taxomonies_with_items(connection:sqlite3.Connection):
+    query = "SELECT id FROM taxomony t"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    response = cursor.fetchall()
+    data = []
+    for taxomony in response:
+        items:List[Item] = get_items_by_taxomony(taxomony[0], connection)
+        data.append({
+            "id": taxomony[0],
+            "items": items
+        })
+    return data
+
+def get_taxomony_by_id(taxomony_id:int, connection:sqlite3.Connection):
+    query = "SELECT * FROM taxomony WHERE id = ?"
+    cursor = connection.cursor()
+    cursor.execute(query, (taxomony_id,))
+    response = cursor.fetchone()
+    return {
+        "id": response[0],
+        "name": response[1]
+    }
 
 if __name__ == "__main__":
     connection = sqlite3.connect("../../../database/main.sqlite")
-    print(get_items_by_taxomony(8087, connection))
+    response = get_items_by_taxomony(4979, connection)
+    print(response)

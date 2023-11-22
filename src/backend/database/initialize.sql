@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS item (
     store_id INTEGER,
     unit TEXT,
     price INTEGER,
+    sales_price INTEGER,
     url TEXT
 );
 
@@ -27,3 +28,5 @@ CREATE TABLE IF NOT EXISTS item_taxonomy (
 );
 
 INSERT OR IGNORE INTO store VALUES (1, "AH", "https://www.ah.nl");
+INSERT OR IGNORE INTO store VALUES (2, "Jumbo", "https://www.jumbo.com");
+INSERT OR IGNORE INTO store VALUES (3, "Hoogvliet", "https://www.hoogvliet.com");
