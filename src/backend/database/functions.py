@@ -8,6 +8,7 @@ class Item(TypedDict):
     price: int
     url: str 
     taxomonies: List[str] # taxemony ids
+    sales_price: int
 
 class Taxomony(TypedDict):
     id: int
@@ -25,10 +26,10 @@ def initialize_database(path:str, connection:sqlite3.Connection):
 
 # TODO: trow error if item already exists or taxemony does not exists
 def add_item(item:Item, connection:sqlite3.Connection):
-    sql_add_item = "INSERT INTO item (name, store_id, unit, price, url) VALUES (?, ?, ?, ?, ?)"
+    sql_add_item = "INSERT INTO item (name, store_id, unit, price, url, sales_price) VALUES (?, ?, ?, ?, ?, ?)"
     sql_add_taxomony = "INSERT INTO item_taxonomy (item_id, taxonomy_id) VALUES (?, ?)"
     cursor = connection.cursor()
-    cursor.execute(sql_add_item, (item["name"], item["store_id"], item["unit"], item["price"], item["url"]))
+    cursor.execute(sql_add_item, (item["name"], item["store_id"], item["unit"], item["price"], item["url"], item["sales_price"]))
     item_id = cursor.lastrowid
     for taxomony in item["taxomonies"]:
         cursor.execute(sql_add_taxomony, (item_id, taxomony))

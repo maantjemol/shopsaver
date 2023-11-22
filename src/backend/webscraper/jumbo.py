@@ -9,6 +9,7 @@ class Item(TypedDict):
     price: int
     url: str 
     taxomonies: List[str] # taxemony ids
+    sales_price: int
 
 class Taxomony(TypedDict):
     id: int
@@ -112,6 +113,7 @@ def parseProducts(cards) -> List[Item]:
             "price": price / 100,
             "unit": unit,
             'store_id': 2,
+            "sales_price": product["prices"]["price"] / 100,
             "url": "https://jumbo.com" + product["link"],
             'taxomonies': []
         }
