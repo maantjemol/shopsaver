@@ -3,6 +3,17 @@ from filter import getItemTaxonomies
 import database.functions as db
 
 def process_product(i, products, allItems):
+    """
+    Summary:
+
+    Parameters:
+    i: 
+    products:
+    allItems: 
+
+    Returns:
+    
+    """
     connection = sqlite3.connect("../../database/main.sqlite")
     product = products[i]
     jumboTax = getItemTaxonomies(product, allItems)

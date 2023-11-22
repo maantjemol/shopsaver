@@ -78,10 +78,25 @@ def fetch_data():
 
 
 def fetch_data_cache(path:str):
+"""
+Fetch the data from the json file. 
+
+Parameters:
+path (str): Path towards a file
+
+Returns:
+json object
+
+"""
     with open(path, 'r') as f:
         return json.load(f)
 
 def parseTaxonomies(cards) -> List[Taxomony]:
+"""
+
+Parameters:
+Cards: 
+"""
     taxonomies:List[Taxomony] = []
     for products in cards:
         for product in products["products"]:

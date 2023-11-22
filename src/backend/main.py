@@ -10,6 +10,13 @@ from filter import getItemTaxonomies, removeBlacklist
 from multiprocessing import Pool
 
 def update_from_cache():
+    """
+    First the database is deleted, than a new connection is made (a new database). 
+    This database will be filled with the data from the supermarkets, where multithreading is used to 
+
+    Returns:
+    Nothing
+    """
     # delete database file:
     os.remove("../../database/main.sqlite")
     
