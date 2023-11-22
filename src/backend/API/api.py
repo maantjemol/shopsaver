@@ -1,4 +1,4 @@
-from math import prod
+from math import inf, prod
 from typing import TypedDict, List
 import sqlite3 
 from flask import Flask, request, jsonify #added to top of file
@@ -85,7 +85,7 @@ def get_taxonomy_id():
     return taxonomy_id
 
 def get_grocery_store():
-        # This is a function that connects to the database and converts a table into a python dictionary
+    # This is a function that connects to the database and converts a table into a python dictionary
     grocery_store = []
     try:
         conn = connect_to_db()
@@ -128,7 +128,7 @@ def lowest_price(Taxonomy_list):
     lowest = []
 
     items = get_items()
-    
+    stores = get_grocery_store()
     taxonomy_list = Taxonomy_list
     # For testing:
     # taxonomy_list = [864, 866, 876]
@@ -153,11 +153,13 @@ def lowest_price(Taxonomy_list):
                 else:
                     continue   
         # Here is a loop that filters out the cheapest product from each store.                 
-        for i in store_id:
-            x={"Price": 1000000000}
+        for i in stores:
+            x={"Price": inf}
             for product in products: 
                 if product["Price"] < x["Price"]: 
                     x = product
+                    x["Store_name"] = i["Store_name"]
+                    x["Taxonomy_id"] = taxonomy
                 else:
                     continue
             lowest_per_store.append(x)
@@ -167,5 +169,5 @@ def lowest_price(Taxonomy_list):
 
 
 if __name__ == "__main__":
+    print("")
     print(main(10))
-
