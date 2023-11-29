@@ -22,6 +22,13 @@ class Store(TypedDict):
 
 
 def fetch_data():
+    """
+    Webscraper of Albert Heijn. 
+
+    Returns:
+    all_products (List): List of all products on the AH website in the category "Aardappel, Groente, Fruit".  
+    
+    """
     cookies = {
         'uuid': 'CFE9508F-8743-4C6E-9102-3F6BFFC9E863',
         'SSLB': '1',
@@ -78,10 +85,30 @@ def fetch_data():
 
 
 def fetch_data_cache(path:str):
+    """
+    Opens a file
+
+    Parameters:
+    path (str): Path towards a file
+
+    Returns:
+    The file as Python object
+    
+    """
     with open(path, 'r') as f:
         return json.load(f)
 
 def parseTaxonomies(cards) -> List[Taxomony]:
+    """
+    Loops through the cards list repeatedly to access the Albert Heijn taxomonies. 
+
+    Parameters:
+    cards (List): List of products we got from the Albert Heijn API
+    
+
+    Returns:
+    A List of Dictionaries with all the Albert Heijn taxemony's name and id.
+    """
     taxonomies:List[Taxomony] = []
     for products in cards:
         for product in products["products"]:
@@ -92,6 +119,15 @@ def parseTaxonomies(cards) -> List[Taxomony]:
     return taxonomies
 
 def parseProducts(cards) -> List[Item]:
+    """
+    Loops through the cards list repeatedly to access the products sold at the Albert Heijn. 
+
+    Parameters:
+    cards (List): List of products we got from the Albert Heijn API
+    
+    Returns:
+    new_products (List): A list of items (Dicts) sold at the Albert Heijn.
+    """
     new_products:List[Item] = []
     for products in cards:
         for product in products["products"]:

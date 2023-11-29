@@ -1,3 +1,3 @@
-# Domentatie voor SHOPSAVER
+# Documentatie voor SHOPSAVER
 
 test documentatie
