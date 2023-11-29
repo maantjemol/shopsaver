@@ -162,3 +162,4 @@ cython_debug/
 src/frontend/node_modules
 .DS_Store
 src/frontend/.vite
+.DS_Store
