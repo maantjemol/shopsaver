@@ -3,13 +3,11 @@ from webscraper.ah import Item
 from database.functions import get_all_taxomonies_with_items
 import re
 
-"""
-Dit bestand matchen we de producten van jumbo en hoogvliet aan taxonomies die de AH gebruikt om haar producten te filteren. 
-Hierdoor wordt het mogelijk gemaakt dezelfde producten die AH, Jubmo & Hoogvliet gemeen hebben te sorteren/groeperen
-"""
-
 def getItemTaxonomies(item:Item, allItems):
     """
+    Match the products from the Jumbo and Hoogvliet to the taxonomies from the Albert Heijn. 
+    The goal of this is to sort/group similar products between supermarkets. 
+    
     To match items from each supermarket this function will check for each new item which taxomony fits
     the best, given the items and taxonomies of AH. 
 

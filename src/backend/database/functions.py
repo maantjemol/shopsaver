@@ -137,7 +137,7 @@ def get_all_taxomonies_with_items(connection:sqlite3.Connection):
 
     Returns:
     returns a List of Dictionaries describing all items and their taxomony's
-    """"
+    """
     
     query = "SELECT id FROM taxomony t"
     cursor = connection.cursor()
@@ -153,7 +153,7 @@ def get_all_taxomonies_with_items(connection:sqlite3.Connection):
     return data
 
 def get_taxomony_by_id(taxomony_id:int, connection:sqlite3.Connection):
-    """""
+    """
     Perform a SQL query to retrieve the taxonomy name using the taxonomy id. 
 
     Preconditions:
@@ -164,7 +164,7 @@ def get_taxomony_by_id(taxomony_id:int, connection:sqlite3.Connection):
     
     Returrns:
     The taxonomy id with its name.
-    """"
+    """
     query = "SELECT * FROM taxomony WHERE id = ?"
     cursor = connection.cursor()
     cursor.execute(query, (taxomony_id,))

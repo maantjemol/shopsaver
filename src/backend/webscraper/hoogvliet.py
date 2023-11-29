@@ -22,6 +22,13 @@ class Store(TypedDict):
     url: str
 
 def fetch_data():
+    """
+    Webscraper of Hoogvliet. 
+
+    Returns:
+    all_products (JSON): All products on the Hoogvliet website in the category "Aardappel, Groente, Fruit".  
+
+    """
     burp0_url = "https://navigator-group1.tweakwise.com:443/navigation/ed681b01?tn_q=&tn_p=0&tn_ps=1000&tn_sort=Relevantie&tn_cid=999999-100&CatalogPermalink=producten&format=json"
     burp0_headers = {"Sec-Ch-Ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"104\"", "Accept": "*/*", "Sec-Ch-Ua-Mobile": "?0", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36", "Sec-Ch-Ua-Platform": "\"macOS\"", "Origin": "https://www.hoogvliet.com", "Sec-Fetch-Site": "cross-site", "Sec-Fetch-Mode": "cors", "Sec-Fetch-Dest": "empty", "Referer": "https://www.hoogvliet.com/", "Accept-Encoding": "gzip, deflate", "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"}
     resp = requests.post(burp0_url, headers=burp0_headers)
@@ -33,10 +40,29 @@ def fetch_data():
     return data
 
 def fetch_data_cache(path:str):
+    """
+    Opens a file
+
+    Parameters:
+    path (str): Path towards a file
+
+    Returns:
+    The file as Python object
+    
+    """
     with open(path, 'r') as f:
         return json.load(f)
 
 def parseProducts(cards) -> List[Item]:
+    """
+    Loops through the cards list repeatedly to access the products sold at the Hoogvliet. 
+
+    Parameters:
+    cards (List): List of products we got from the Hoogvliet API
+    
+    Returns:
+    products (List): A list of items (Dicts) sold at the Hoogvliet.
+    """
     items = cards['items']
     products = []
     for item in items:

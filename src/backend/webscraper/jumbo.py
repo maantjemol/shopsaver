@@ -22,6 +22,13 @@ class Store(TypedDict):
 
 
 def fetch_data():
+    """
+    Webscraper of Jumbo. 
+
+    Returns:
+    all_data (List): List of all products on the AH website in the category "Aardappelen, Groente en Fruit".  
+    
+    """
     cookies = {
         'OptanonAlertBoxClosed': '2023-10-20T14:15:16.771Z',
         'country': 'NL',
@@ -91,10 +98,29 @@ def fetch_data():
     return all_data
 
 def fetch_data_cache(path:str):
+    """
+    Opens a file
+
+    Parameters:
+    path (str): Path towards a file
+
+    Returns:
+    The file as Python object
+    
+    """
     with open(path, 'r') as f:
         return json.load(f)
 
 def parseProducts(cards) -> List[Item]:
+    """
+    Loops through the cards list repeatedly to access the products sold at the Jumbo. 
+
+    Parameters:
+    cards (List): List of products we got from the Jumbo API
+    
+    Returns:
+    new_products (List): A list of items (Dicts) sold at the Jumbo.
+    """
     new_products:List[Item] = []
     for product in cards:
         # price per unit = pieces
@@ -110,6 +136,7 @@ def parseProducts(cards) -> List[Item]:
 
         new_product:Item = {
             "name": product["title"],
+            # Jumbo stores their prices in cents instead of euro's.
             "price": price / 100,
             "unit": unit,
             'store_id': 2,
