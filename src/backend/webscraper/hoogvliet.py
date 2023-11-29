@@ -21,7 +21,7 @@ class Store(TypedDict):
     name: str
     url: str
 
-def fetch_data():
+def fetch_data(cachePath = '../../../cache/hoogvliet.json'):
     """
     Webscraper of Hoogvliet. 
 
@@ -34,7 +34,7 @@ def fetch_data():
     resp = requests.post(burp0_url, headers=burp0_headers)
     data = resp.json()
 
-    with open('../../../cache/hoogvliet.json', 'w') as f:
+    with open(cachePath, 'w') as f:
         json.dump(data, f)  
 
     return data

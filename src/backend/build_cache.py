@@ -6,8 +6,21 @@ def buildCache():
     path = "../../cache/"
     print("Building cache...")
     print("Fetching data from AH")
-    ah.fetch_data()
+    try:
+        ah.fetch_data("../../cache/ah.json")
+    except:
+        print("Error fetching data from AH")
     print("Fetching data from Jumbo")
-    jumbo.fetch_data()
+    try:
+        jumbo.fetch_data("../../cache/jumbo.json")
+    except:
+        print("Error fetching data from Jumbo")
     print("Fetching data from Hoogvliet")
-    hoogvliet.fetch_data()
+    try:
+        hoogvliet.fetch_data("../../cache/hoogvliet.json")
+    except:
+        print("Error fetching data from Hoogvliet")
+    print("Done building cache")
+
+if __name__ == "__main__":
+    buildCache()
