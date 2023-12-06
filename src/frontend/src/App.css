@@ -1,9 +1,17 @@
+/**
+ * This styles for the App component.
+ */
 .App {
     background-color: #eee;
     width: 100vw;
     height: 100vh;
   }
   
+
+  
+/**
+ * This styles for the container holding the search bar and results.
+ */
   .search-bar-container {
     padding-top: 20vh;
     width: 40%;
