@@ -3,10 +3,7 @@ import "./App.css";
 import { Searchbar } from "./components/Searchbar";
 import { SearchResultsList } from "./components/SearchresultsList";
 import logo from "./images/shopsaver1.png"
-import logo1 from"./images/shopsaver.jpg"
 import logo2 from "./images/shop.qua.png"
-import logo3 from "./images/shop.png"
-import Winkels from "./components/Winkels";
 import ahimg from "./images/ah.png"
 import jumboimg from "./images/jumbo.logo.png"
 import hoogvlietimg from "./images/hoogvliet.logo.png"
@@ -85,12 +82,12 @@ function App() {
 
         </div>
             <div className="grocery-list">
-              <ul className="list-of-groceries">
+              <ul className="grocery-list--list">
                 {groceryList.map((item, i) => (
                   <li key={item + i} className="grocery-list-li">
                     <span>{item.name}</span>
                     
-                      <button className="removeButton"
+                      <button className="grocery-list--removeButton"
                         onClick={() =>
                         setGroceryList((prevList) => {
                           const newList = [...prevList];
@@ -105,12 +102,12 @@ function App() {
                 ))}
               </ul>
               </div>
-        <div className="button-div">
-        <button className="verwijder-button" onClick={() => setGroceryList([])}>Verwijder alles</button>
+        <div className="grocery-list--button">
+        <button className="grocery-list--verwijder-button" onClick={() => setGroceryList([])}>Verwijder alles</button>
         </div>
         
 
-        <div className="Winkels">
+        <div className="winkel">
           {priceData.map((item) => {
             let imgSrc = ""
 
@@ -121,12 +118,12 @@ function App() {
             return (
             <div 
              key={item.Store_name}
-              className="winkel-container"
+              className="winkel--container"
               
             >
               
-                <div className="winkel-item">
-                <img src={imgSrc} className="winkel-image" />
+                <div className="winkel--item">
+                <img src={imgSrc} className="winkel--image" />
                   <h2>
                     {item.Store_name} - €
                     {item.products.reduce((a, b) => a + b.Sales_price, 0).toFixed(2)}
@@ -136,8 +133,8 @@ function App() {
               <ul>
                 <div>
                 {item.products.map((product) => (
-                  <li key={product.Product_id} className="winkel-li">
-                    <a className="winkel-text"
+                  <li key={product.Product_id} className="winkel--li">
+                    <a className="winkel--text"
                       href={product.Product_url}
                       target="_blank"
                       rel="noreferrer"
@@ -148,30 +145,9 @@ function App() {
                 ))}
                 </div>
               </ul>
-              
             </div>
           )})}
         </div>
-
-
-
-
-
-
-
-
-        <div>
-        {/* <footer className="footer">
-          <p>Dit is de footer!</p>
-            
-        </footer> */}
-
-        </div>
-
-
-
-
-
       </div>
     );
   }
