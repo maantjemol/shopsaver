@@ -21,7 +21,7 @@ class Store(TypedDict):
     url: str
 
 
-def fetch_data():
+def fetch_data(cachePath = '../../../cache/jumbo.json'):
     """
     Webscraper of Jumbo. 
 
@@ -68,6 +68,7 @@ def fetch_data():
     all_data = []
 
     for i in range(28):
+        print("progress: " + str(i) + "/" + str(27))
         json_data = {
             'operationName': 'SearchProducts',
             'variables': {
@@ -92,7 +93,7 @@ def fetch_data():
         data = response.json()["data"]["searchProducts"]["products"]
         print("progress: " + str(i) + "/" + str(27))
         all_data.extend(data)
-    with open('../../../cache/jumbo.json', 'w') as f:
+    with open(cachePath, 'w') as f:
         json.dump(all_data, f)  
 
     return all_data

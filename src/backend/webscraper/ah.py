@@ -21,7 +21,7 @@ class Store(TypedDict):
     url: str
 
 
-def fetch_data():
+def fetch_data(cachePath:str = '../../../cache/ah.json'):
     """
     Webscraper of Albert Heijn. 
 
@@ -78,7 +78,7 @@ def fetch_data():
         products = response.json()["cards"]
         all_products.extend(products)
 
-    with open('../../../cache/ah.json', 'w') as f:
+    with open(cachePath, 'w') as f:
         json.dump(all_products, f)  
 
     return all_products

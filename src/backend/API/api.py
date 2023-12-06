@@ -22,7 +22,7 @@ def get_taxonomy():
         conn = connect_to_db()
         conn.row_factory = sqlite3.Row
         cur = conn.cursor()
-        cur.execute("SELECT * FROM Taxomony")
+        cur.execute("SELECT t.id, t.name FROM taxomony t WHERE NOT EXISTS (SELECT s.id FROM store s WHERE NOT EXISTS ( SELECT i.id FROM item_taxonomy it JOIN item i ON it.item_id = i.id WHERE it.taxonomy_id = t.id AND i.store_id = s.id));")
         rows = cur.fetchall()
 
         #This loops rows and stores the row objects to dictionary called Products
