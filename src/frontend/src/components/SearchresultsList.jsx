@@ -1,7 +1,6 @@
 import React from "react";
 
 import "./SearchResultsList.css";
-import { SearchResult } from "./SearchResult";
 /**
  * SearchResultsList Component
  * Displays a list of search results in the Searchbar component.
