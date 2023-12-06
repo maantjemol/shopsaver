@@ -1,3 +1,8 @@
+/**
+ * This styles for the search icon within the Searchbar component wrapper.
+ * This provides a visually appearance for the Searchbar
+ */
+
 .input-wrapper {
     width: 100%;
     height: 2.5rem;
@@ -9,7 +14,11 @@
     display: flex;
     align-items: center;
   }
-  
+
+  /**
+ * Styles for the input element within the Searchbar component.
+ * Defines the appearance of the input field for user input.
+ */
   input {
     background-color: transparent;
     border: none;
@@ -19,10 +28,17 @@
     margin-left: 5px;
   }
   
+  /**
+ * Removes the default focus outline for a cleaner appearance.
+ */
   input:focus {
     outline: none;
   }
   
+  /**
+ * This styles for the search icon within the Searchbar component.
+ * Sets the color of the search icon to royal blue for visual emphasis.
+ */
   #search-icon {
     color: royalblue;
   }

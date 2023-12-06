@@ -1,7 +1,14 @@
+/**
+* This defines the appearance of each result (padding).
+ */
 .search-result {
     padding: 10px 20px;
   }
   
+
+  /**
+ * Changes the background color on hover to provide visual feedback.
+ */
   .search-result:hover {
     background-color: #efefef;
   }
