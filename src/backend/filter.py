@@ -89,6 +89,8 @@ def removeBlacklist(string:str, blacklist:str):
     A string where words that are in the blacklist are replaced with " ". 
     """
     string = string.lower()
+    if len(blacklist) == 0:
+        return string
     for item in blacklist.split("\n"):
         string = string.replace(item + " ", "")
         pattern = r"\b\d+(\.\d+)?\s*[kmlgKMLG]{1,2}\b"

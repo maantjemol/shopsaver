@@ -123,7 +123,8 @@ def get_items_by_taxomony(taxomony_id:int, connection:sqlite3.Connection):
             "store_id": item[2],
             "unit": item[3],
             "price": item[4],
-            "url": item[5],
+            "sales_price": item[5],
+            "url": item[6],
             "taxomonies": [item[-1]]
         })
     return products
