@@ -2,6 +2,7 @@ from math import inf, prod
 from typing import TypedDict, List
 import sqlite3 
 
+
 def main(taxonomy_list):
     '''This is the main function for testing'''
     # For testing
@@ -175,6 +176,65 @@ def lowest_price(Taxonomy_list):
     return lowest
 
 
+def get_join_table():
+    '''This is a function that connects to the database and joins the
+     item_taxonomy table to the item table and converts the table into a python dictionary'''
+    all_id = []
+    try: 
+        conn = connect_to_db()
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM item_taxonomy it JOIN item i ON(it.item_id = i.id)")
+        rows = cur.fetchall()
+
+        #This loops rows and stores the row objects to dictionary called Products
+        for i in rows:
+            taxonomy = {}
+            taxonomy["Store_id"] = i["store_id"]
+            taxonomy["Taxonomy_id"] = i["taxonomy_id"]
+            taxonomy["Item_id"] = i["id"]
+            all_id.append(taxonomy)
+        
+    except:
+        all_id = []
+
+    return all_id
+
+
+def filtered_taxonomies():
+    '''This function filters out the taxomonies that do not belong to products that are sold in every store'''
+    filtered = []
+    
+
+    taxonomies = get_taxonomy()
+    all_id = get_join_table()
+    stores = get_grocery_store()
+
+    # This loop stores all the store_id values 
+    store_id = []
+    for store in stores:
+        store_id.append(store["Store_id"])
+
+    # This loops over every taxonomy and tries to match it with every item that is linked to the taxonomy
+    # and stores the value of every store_id inside in_store, once in_store is equal to store_id we know it is sold in every
+    # store.
+    for taxonomy in taxonomies: 
+        in_store = []
+        for id in all_id:
+            if taxonomy["product_id"] == id["Taxonomy_id"] and id["Store_id"] not in in_store:
+                in_store.append(id["Store_id"])
+                if in_store == store_id:
+                    break
+        if in_store == store_id:
+            filtered.append(taxonomy)
+    
+    return filtered
+
+
 if __name__ == "__main__":
     print("")
-    print(main(10))
+    # print(main(10))
+    # print(get_filter())
+    print(filtered_taxonomies())
+
+    
