@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import "./Serachbar.css";
+import "./Searchbar.css";
 
 export const Searchbar = ({ setResults, data }) => {
   // this will refresh the page with our chosen input (setInput)
@@ -8,12 +8,9 @@ export const Searchbar = ({ setResults, data }) => {
   const [input, setInput] = useState("");
 
   const getData = (value) => {
-    // getting data from:
     const results = data.filter((element) => {
-      // filtering on:
       return element.name.toLowerCase().includes(value.toLowerCase());
     });
-
     setResults(results);
   };
 
@@ -23,8 +20,8 @@ export const Searchbar = ({ setResults, data }) => {
   };
 
   return (
-    <div className="input-wrapper">
-      <FaSearch id="search-icon" />
+    <div className="input">
+      <FaSearch id="input--search-icon" />
       <input
         placeholder="Selecteer product..."
         value={input}

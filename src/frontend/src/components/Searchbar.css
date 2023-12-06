@@ -1,4 +1,4 @@
-.input-wrapper {
+.input {
     width: 100%;
     height: 2.5rem;
     border: none;
@@ -23,7 +23,7 @@
     outline: none;
   }
   
-  #search-icon {
+  #input--search-icon {
     color: royalblue;
   }
   
