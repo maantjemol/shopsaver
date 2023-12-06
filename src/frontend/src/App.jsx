@@ -8,14 +8,21 @@ import ahimg from "./images/ah.png"
 import jumboimg from "./images/jumbo.logo.png"
 import hoogvlietimg from "./images/hoogvliet.logo.png"
 
+/**
+ * The main component representing the grocery list application.
+ */
+
 function App() {
+  // State variables to manage data and grocery list
   const [results, setResults] = useState([]);
   const [groceryList, setGroceryList] = useState([]);
   const [data, setData] = useState([]);
   const [priceData, setPriceData] = useState([]);
 
   const serverPort = "http://127.0.0.1:5000";
+  // Server port for API requests
 
+  // Fetch taxonomies data on component mount
   useEffect(() => {
     fetch(serverPort + "/api/getalltaxonomies")
       .then((response) => response.json())
@@ -24,6 +31,7 @@ function App() {
   }, []);
 
   const clickAction = (id) => {
+    // Click action to add items to the grocery list
     setGroceryList((oldlist) => {
       if (oldlist.includes(id)) {
         return oldlist;
@@ -32,10 +40,12 @@ function App() {
     });
   };
 
+  // Fetch data based on the current grocery list
   useEffect(() => {
     fetchData();
   }, [groceryList]);
 
+  // Fetches data from the server based on the current grocery list
   const fetchData = async () => {
     const taxlist = groceryList.map((item) => item.product_id);
     let headersList = {
@@ -56,6 +66,7 @@ function App() {
     setPriceData(data);
   };
 
+  // Rendered JSX structure
   return (
       <div className="App">
         <div className="header">

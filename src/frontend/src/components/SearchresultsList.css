@@ -1,19 +1,22 @@
-.results--list {
-    width: 100%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 0px 8px #ddd;
-    border-radius: 10px;
-    margin-top: 1rem;
-    max-height: 300px;
-    overflow-y: auto;
-  }
+/* 
+  This defines the appearance and layout of the list containing search results.
+*/
+.results-list {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 8px #ddd;
+  border-radius: 10px;
+  margin-top: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
 
-  .search--result {
-    padding: 10px 20px;
-  }
-  
-  .search--result:hover {
-    background-color: #efefef;
-  }
+.search--result {
+  padding: 10px 20px;
+}
+
+.search--result:hover {
+  background-color: #efefef;
+}
