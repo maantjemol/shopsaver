@@ -4,20 +4,41 @@ import sqlite3
 
 
 def main(taxonomy_list):
-    '''This is the main function for testing'''
+    '''
+    This is the main function that runs all the code and we use for testing
+
+    Parameters: 
+    taxonomy_list: A list that contains all taxonomy ID's from products the user selected.
+
+    Returns: 
+    A list that contains the cheapest products for each store.
+
+    '''
     # For testing
     # taxonomy_list = [864, 866, 876]
     taxonomy_list = [864]
+
     lowest = lowest_price(taxonomy_list)
     return lowest
 
 def connect_to_db():
-    '''This function makes the connection from this python file to the database. '''
+    '''
+    This function makes the connection from this python file to the database and is used to shorten the code when 
+    writing functions that need to receive tables from the database.
+
+    Returns: a variable conn that is a connection to our database file. 
+
+    '''
     conn = sqlite3.connect('../../../database/main.sqlite')
     return conn
 
 def get_taxonomy():
-    '''This function requests the taxonomy table from the database and stores the data in a python dictionary'''
+    '''
+    This function requests the taxonomy table from the database and stores the data in a python dictionary
+    
+    Returns: 
+    A list of dictionaries that contains all the products within the taxonomy table.
+    '''
     Products = []
     try:
         conn = connect_to_db()
@@ -39,7 +60,13 @@ def get_taxonomy():
     return Products
 
 def get_items():            
-    '''This is a function that connects to the database and converts the item table into a python dictionary'''
+    '''
+    This is a function that connects to the database and converts the item table into a python dictionary
+
+    Returns: 
+    A list of dictionaries that cointains the information of every item within the item table stored in 
+    the database. 
+    '''
     items = []
     try:
         conn = connect_to_db()
@@ -66,7 +93,12 @@ def get_items():
     return items
 
 def get_taxonomy_id():
-    '''This is a function that connects to the database and converts the taxonomy_id table into a python dictionary'''
+    '''
+    This is a function that connects to the database and converts the taxonomy_id table into a python dictionary
+    
+    Returns: 
+    A list of dictionaries that cointains the information from the item_taxonomy table. 
+    '''
     taxonomy_id = []
     try: 
         conn = connect_to_db()
@@ -87,7 +119,12 @@ def get_taxonomy_id():
     return taxonomy_id
 
 def get_grocery_store():
-    '''This is a function that connects to the database and converts the stores table into a python dictionary'''
+    '''
+    This is a function that connects to the database and converts the stores table into a python dictionary
+    
+    Returns:
+    A list of dictionaries that cointains the information from the store table.
+    '''
     grocery_store = []
     try:
         conn = connect_to_db()
@@ -108,8 +145,16 @@ def get_grocery_store():
     return grocery_store
 
 def match_taxonomy_to_id(Taxonomy):
-    '''This function matches the taxonomy_id to the item_id and
-     returns a list that cointains every item that the taxonomy is linked to'''
+    '''
+    This function matches the taxonomy_id to the item_id and
+     returns a list that cointains every item that the taxonomy is linked to
+    
+    Parameter: 
+    Taxonomy: a integer value that represents the taxonomy id.
+
+    Returns: 
+    A list of products ID's that are linked to the taxonomy
+    '''
     Matches = []
     taxonomy = Taxonomy
     # For testing
@@ -125,8 +170,12 @@ def match_taxonomy_to_id(Taxonomy):
 def lowest_price(Taxonomy_list):
     '''
     This function calculates the lowest price of each prodect per store
-    The function takes in the list of the taxonomies that it receives from the website
-    It then uses the function match_taxonomy_to_id() to convert those taxomonies to all item id's it is connected to
+
+    Parameter:
+    Taxonomy_list: a list of the taxonomies that it receives from the website that were selected by the user
+    
+    Returns: 
+    A list of dictionaries that cointains the lowest price per product for each store. 
     '''
 
     lowest = []
@@ -177,8 +226,13 @@ def lowest_price(Taxonomy_list):
 
 
 def get_join_table():
-    '''This is a function that connects to the database and joins the
-     item_taxonomy table to the item table and converts the table into a python dictionary'''
+    '''
+    This is a function that connects to the database and joins the
+    item_taxonomy table to the item table and converts the table into a python dictionary
+
+    Returns: 
+    A list of dictionaries that contains every match between product_id, store_id and item_id
+    '''
     all_id = []
     try: 
         conn = connect_to_db()
@@ -202,7 +256,12 @@ def get_join_table():
 
 
 def filtered_taxonomies():
-    '''This function filters out the taxomonies that do not belong to products that are sold in every store'''
+    '''
+    This function filters out the taxomonies that do not belong to products that are sold in every store
+    
+    Returns: 
+    A list of dictionaries that contains every taxonomy id that matches with an item that is sold in every store
+    '''
     filtered = []
     
 
@@ -235,6 +294,6 @@ if __name__ == "__main__":
     print("")
     # print(main(10))
     # print(get_filter())
-    print(filtered_taxonomies())
+    print(main([209]))
 
     
