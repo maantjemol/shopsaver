@@ -100,12 +100,9 @@ python3 main.py
 
 ## Running Tests
 
-To run tests, run the following command
+To run tests, run the following commands
 
 ```bash
-  npm run test
+  cd src/backend
+  python3 -m unittest discover -v -s . -p "*test*.py
 ```
-
-## Authors
-
-- [@octokatherine](https://www.github.com/octokatherine)
