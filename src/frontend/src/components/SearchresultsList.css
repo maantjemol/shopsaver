@@ -1,7 +1,7 @@
 /* 
   This defines the appearance and layout of the list containing search results.
 */
-.results-list {
+.results--list {
   width: 100%;
   background-color: white;
   display: flex;
