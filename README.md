@@ -2,6 +2,8 @@
 
 A fullstack webapp to unearth the Best Grocery Deals!
 
+Video: https://www.youtube.com/watch?v=fsJYcPDZ2us
+
 ## Installation
 
 Clone the project
